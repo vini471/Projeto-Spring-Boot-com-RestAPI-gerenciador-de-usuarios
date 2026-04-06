@@ -1,9 +1,6 @@
 package com.projeto.api.controller;
 
-import com.projeto.api.dto.ConfirmaLoginDto;
-import com.projeto.api.dto.SaidaDto;
-import com.projeto.api.dto.TrocaSenhaDto;
-import com.projeto.api.dto.UsuarioDto;
+import com.projeto.api.dto.*;
 import com.projeto.api.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -35,8 +32,8 @@ public class UsuarioController {
 
     @DeleteMapping("/deletar")
     public ResponseEntity<String> deletaUsuarioController(@RequestBody UsuarioDto usuarioDto) {
-        boolean retoro = service.deletaUsuario(usuarioDto);
-        if (!retoro) {
+        boolean retorno = service.deletaUsuario(usuarioDto);
+        if (!retorno) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Usuario não encontrado/excluido! Verifique as informações e tente novamente!");
@@ -45,7 +42,7 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping("/autentificacao/{loginConfirma}/{senhaConfirma}")
+    @PostMapping("/autentificacao")
     public ResponseEntity<String> confirmaUsuarioController(@RequestBody ConfirmaLoginDto confirmaLoginDto) {
         boolean retorno = service.confirmaLoginUsuario(confirmaLoginDto);
         if (!retorno) {
@@ -70,22 +67,25 @@ public class UsuarioController {
 
     @PutMapping("/atualiza/{login}")
     public ResponseEntity<String> atualizaUsuarioController(@PathVariable String login,
-                                                            @RequestBody UsuarioDto usuarioDto) {
-        boolean retorno = service.atualizaUsuario(login, usuarioDto);
+                                                            @RequestBody AtualizaUsuarioDto atualizaUsuarioDto) {
+        boolean retorno = service.atualizaUsuario(atualizaUsuarioDto, login);
         if (!retorno) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario/informações inválidas! cheque as informações e tente novamente!");
         } else {
             return ResponseEntity.ok().body("Usuario atualizado com sucesso!");
         }
+    }
 
         @GetMapping("/obter")
-        public ResponseEntity<List<SaidaDto>> listaUsuarioController () {
+        public ResponseEntity<List<SaidaDto>> listaUsuarioController() {
             List<SaidaDto> usuarios = service.obterUsuario();
+
             if (usuarios == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             } else {
-
+                return ResponseEntity.ok(usuarios);
             }
         }
+
     }
-}
+

@@ -6,7 +6,7 @@ public class UsuarioDto {
     private String emailUsuario;
     private String senhaUsario;
     private String cpfUsuario;
-    private String idadeUsuario;
+    private int idadeUsuario;
 
     public UsuarioDto() {
     }
@@ -43,11 +43,11 @@ public class UsuarioDto {
         this.cpfUsuario = cpfUsuario;
     }
 
-    public String getIdadeUsuario() {
+    public int getIdadeUsuario() {
         return idadeUsuario;
     }
 
-    public void setIdadeUsuario(String idadeUsuario) {
+    public void setIdadeUsuario(int idadeUsuario) {
         this.idadeUsuario = idadeUsuario;
     }
 }

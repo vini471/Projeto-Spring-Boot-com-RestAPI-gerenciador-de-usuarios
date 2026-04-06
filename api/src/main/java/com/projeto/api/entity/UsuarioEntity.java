@@ -6,7 +6,7 @@ public class UsuarioEntity {
     private String emailUsuario;
     private String senhaUsuario;
     private String cpfUsuario;
-    private String idadeUsuario;
+    private int idadeUsuario;
 
     public UsuarioEntity() {
     }
@@ -43,11 +43,11 @@ public class UsuarioEntity {
         this.cpfUsuario = cpfUsuario;
     }
 
-    public String getIdadeUsuario() {
+    public int getIdadeUsuario() {
         return idadeUsuario;
     }
 
-    public void setIdadeUsuario(String idadeUsuario) {
+    public void setIdadeUsuario(int idadeUsuario) {
         this.idadeUsuario = idadeUsuario;
     }
 }

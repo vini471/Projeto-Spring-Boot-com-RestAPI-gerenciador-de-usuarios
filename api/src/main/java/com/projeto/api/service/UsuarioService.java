@@ -1,9 +1,6 @@
 package com.projeto.api.service;
 
-import com.projeto.api.dto.ConfirmaLoginDto;
-import com.projeto.api.dto.SaidaDto;
-import com.projeto.api.dto.TrocaSenhaDto;
-import com.projeto.api.dto.UsuarioDto;
+import com.projeto.api.dto.*;
 import com.projeto.api.entity.UsuarioEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +17,17 @@ public class UsuarioService {
             if (usuario.getEmailUsuario().equals(dto.getEmailUsuario())) {
                 return false;
             }
-            usuario.setEmailUsuario(dto.getEmailUsuario());
-            usuario.setCpfUsuario(dto.getCpfUsuario());
-            usuario.setNomeUsuario(dto.getNomeUsuario());
-            usuario.setSenhaUsario(dto.getSenhaUsario());
-            usuario.setIdadeUsuario(dto.getIdadeUsuario());
-
-            listaUsuario.add(usuario);
-            return true;
         }
-        return false;
+        UsuarioEntity entity = new UsuarioEntity();
+
+        entity.setNomeUsuario(dto.getNomeUsuario());
+        entity.setEmailUsuario(dto.getEmailUsuario());
+        entity.setCpfUsuario(dto.getCpfUsuario());
+        entity.setSenhaUsario(dto.getSenhaUsario());
+        entity.setIdadeUsuario(dto.getIdadeUsuario());
+
+        listaUsuario.add(entity);
+        return true;
     }
 
     public boolean deletaUsuario(UsuarioDto dto) {
@@ -45,9 +43,30 @@ public class UsuarioService {
 
     public boolean confirmaLoginUsuario(ConfirmaLoginDto confirmaLoginDto){
         for (UsuarioEntity entity : listaUsuario){
-            if (entity.getEmailUsuario().equals(confirmaLoginDto.getLoginConfirma())){
-                if (!entity.getSenhaUsario().equals(confirmaLoginDto.getSenhaConfirma())){
-                    return false;
+            if (confirmaLoginDto.getLoginConfirma() != null
+                    && confirmaLoginDto.getSenhaConfirma() != null
+                    && confirmaLoginDto.getLoginConfirma().equals(entity.getEmailUsuario())
+                    && confirmaLoginDto.getSenhaConfirma().equals(entity.getSenhaUsario())){
+                
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean atualizaUsuario(AtualizaUsuarioDto dto, String login){
+        for (UsuarioEntity busca : listaUsuario){
+            if (busca.getEmailUsuario().equals(login)) {
+                if (dto.getNomeNovo() != null) {
+                    busca.setNomeUsuario(dto.getNomeNovo());
+                }
+
+                if (dto.getEmailNovo() != null) {
+                    busca.setEmailUsuario(dto.getEmailNovo());
+                }
+
+                if (dto.getIdadeNovo() != 0) {
+                    busca.setIdadeUsuario(dto.getIdadeNovo());
                 }
                 return true;
             }
@@ -55,19 +74,7 @@ public class UsuarioService {
         return false;
     }
 
-    public boolean atualizaUsuario(String login, UsuarioDto usuarioDto){
-        for (UsuarioEntity entity : listaUsuario){
-            if (entity.getEmailUsuario().equals(login)){
-                entity.setSenhaUsario(usuarioDto.getSenhaUsario());
-                entity.setNomeUsuario(usuarioDto.getNomeUsuario());
-                entity.setEmailUsuario(usuarioDto.getEmailUsuario());
-                entity.setIdadeUsuario(usuarioDto.getIdadeUsuario());
 
-                return true;
-            }
-        }
-        return false;
-    }
 
     /*public boolean atualizaUsuario(UsuarioDto usuarioDto){
         for (UsuarioEntity entity : listaUsuario){
