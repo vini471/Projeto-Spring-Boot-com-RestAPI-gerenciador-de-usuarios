@@ -1,6 +1,7 @@
 package com.projeto.api.service;
 
 import com.projeto.api.dto.*;
+import com.projeto.api.entity.ProdutoEntity;
 import com.projeto.api.entity.UsuarioEntity;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,9 @@ import java.util.List;
 public class UsuarioService {
 
     private List<UsuarioEntity> listaUsuario = new ArrayList<>();
+
+    //================================================================================
+    //====================================POST========================================
 
     public boolean cadastraUsuario(UsuarioDto dto) {
         for (UsuarioEntity usuario : listaUsuario) {
@@ -30,13 +34,26 @@ public class UsuarioService {
         return true;
     }
 
-    public boolean deletaUsuario(UsuarioDto dto) {
-        for (UsuarioEntity usuario : listaUsuario) {
-            if (usuario.getEmailUsuario().equals(dto.getEmailUsuario())) {
-                listaUsuario.remove(usuario);
+    public boolean trocaSenhaUsuario(String email, TrocaSenhaDto trocaSenhaDto) {
+        for (UsuarioEntity entity : listaUsuario) {
+            /*if (entity.getSenhaUsario().equals(trocaSenhaDto.getSenhaAtual())
+                    && trocaSenhaDto.getSenhaNova().equals(trocaSenhaDto.getSenhaNovaConfirma())
+                    && entity.getEmailUsuario().equals(email)) {
+                entity.setSenhaUsario(trocaSenhaDto.getSenhaNova());
                 return true;
-            }
-            return false;
+            }*/
+            if (entity.getEmailUsuario().equals(email)) {
+
+                if (!entity.getSenhaUsario().equals(trocaSenhaDto.getSenhaAtual())) {
+                    return false;
+                }
+                if (!trocaSenhaDto.getSenhaNova().equals(trocaSenhaDto.getSenhaNovaConfirma())) {
+                    return false;
+                } }
+            entity.setSenhaUsario(trocaSenhaDto.getSenhaNovaConfirma());
+            return true;
+
+
         }
         return false;
     }
@@ -47,12 +64,28 @@ public class UsuarioService {
                     && confirmaLoginDto.getSenhaConfirma() != null
                     && confirmaLoginDto.getLoginConfirma().equals(entity.getEmailUsuario())
                     && confirmaLoginDto.getSenhaConfirma().equals(entity.getSenhaUsario())){
-                
+
                 return true;
             }
         }
         return false;
     }
+
+    //================================================================================
+    //====================================DELETE======================================
+
+    public boolean deletaUsuario(UsuarioDto dto) {
+        for (UsuarioEntity usuario : listaUsuario) {
+            if (usuario.getEmailUsuario().equals(dto.getEmailUsuario())) {
+                listaUsuario.remove(usuario);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //================================================================================
+    //====================================PUT=========================================
 
     public boolean atualizaUsuario(AtualizaUsuarioDto dto, String login){
         for (UsuarioEntity busca : listaUsuario){
@@ -74,39 +107,8 @@ public class UsuarioService {
         return false;
     }
 
-
-
-    /*public boolean atualizaUsuario(UsuarioDto usuarioDto){
-        for (UsuarioEntity entity : listaUsuario){
-            if (entity.getEmailUsuario().equals(usuarioDto.getEmailUsuario())){
-
-            }
-        }
-    }*/
-
-    public boolean trocaSenhaUsuario(String email, TrocaSenhaDto trocaSenhaDto) {
-        for (UsuarioEntity entity : listaUsuario) {
-            /*if (entity.getSenhaUsario().equals(trocaSenhaDto.getSenhaAtual())
-                    && trocaSenhaDto.getSenhaNova().equals(trocaSenhaDto.getSenhaNovaConfirma())
-                    && entity.getEmailUsuario().equals(email)) {
-                entity.setSenhaUsario(trocaSenhaDto.getSenhaNova());
-                return true;
-            }*/
-            if (entity.getEmailUsuario().equals(email)) {
-
-            if (!entity.getSenhaUsario().equals(trocaSenhaDto.getSenhaAtual())) {
-                return false;
-            }
-            if (!trocaSenhaDto.getSenhaNova().equals(trocaSenhaDto.getSenhaNovaConfirma())) {
-                return false;
-            } }
-            entity.setSenhaUsario(trocaSenhaDto.getSenhaNovaConfirma());
-            return true;
-
-
-        }
-        return false;
-    }
+    //================================================================================
+    //====================================GET=========================================
 
     public List<SaidaDto> obterUsuario() {
         List<SaidaDto> listaObterUsuario = new ArrayList<>();
@@ -123,17 +125,16 @@ public class UsuarioService {
         return listaObterUsuario;
     }
 
-    public List<SaidaDto> procuraUsuario(String emailProcura) {
+    public List<SaidaDto> procuraUsuario(ProcuraUsuarioDto procuraUsuarioDto) {
         List<SaidaDto> listaSaidaDto = new ArrayList<>();
         for (UsuarioEntity entity : listaUsuario) {
-            if (entity.getEmailUsuario().equals(emailProcura)) {
+            if (entity.getEmailUsuario().equals(procuraUsuarioDto.getEmailBusca())) {
                 SaidaDto saidaDto = new SaidaDto();
                 saidaDto.setEmailUsuario(entity.getEmailUsuario());
                 saidaDto.setNomeUsuario(entity.getNomeUsuario());
-                System.out.println(listaUsuario);
+                listaSaidaDto.add(saidaDto);
             }
         }
-        return null;
+        return listaSaidaDto;
     }
-
 }

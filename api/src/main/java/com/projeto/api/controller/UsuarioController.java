@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.projeto.api.dto.SaidaDto;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class UsuarioController {
         this.service = service;
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/usuario")
     public ResponseEntity<String> cadastraUsuarioController(@RequestBody UsuarioDto usuarioDto) {
         boolean retorno = service.cadastraUsuario(usuarioDto);
         if (!retorno) {
@@ -27,18 +28,6 @@ public class UsuarioController {
                     .body("Usuario não adiconado/Dados inálidos! Verifique as informações e tente novamente!");
         } else {
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuaro cadastrado com sucesso!");
-        }
-    }
-
-    @DeleteMapping("/deletar")
-    public ResponseEntity<String> deletaUsuarioController(@RequestBody UsuarioDto usuarioDto) {
-        boolean retorno = service.deletaUsuario(usuarioDto);
-        if (!retorno) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body("Usuario não encontrado/excluido! Verifique as informações e tente novamente!");
-        } else {
-            return ResponseEntity.ok().body("Usuario deletado com sucesso!");
         }
     }
 
@@ -65,6 +54,18 @@ public class UsuarioController {
         }
     }
 
+    @DeleteMapping("/usuario/3")
+    public ResponseEntity<String> deletaUsuarioController(@RequestBody UsuarioDto usuarioDto) {
+        boolean retorno = service.deletaUsuario(usuarioDto);
+        if (!retorno) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Usuario não encontrado/excluido! Verifique as informações e tente novamente!");
+        } else {
+            return ResponseEntity.ok().body("Usuario deletado com sucesso!");
+        }
+    }
+
     @PutMapping("/atualiza/{login}")
     public ResponseEntity<String> atualizaUsuarioController(@PathVariable String login,
                                                             @RequestBody AtualizaUsuarioDto atualizaUsuarioDto) {
@@ -76,8 +77,8 @@ public class UsuarioController {
         }
     }
 
-        @GetMapping("/obter")
-        public ResponseEntity<List<SaidaDto>> listaUsuarioController() {
+    @GetMapping("/usuarios")
+    public ResponseEntity<List<SaidaDto>> listaUsuarioController() {
             List<SaidaDto> usuarios = service.obterUsuario();
 
             if (usuarios == null) {
@@ -86,6 +87,19 @@ public class UsuarioController {
                 return ResponseEntity.ok(usuarios);
             }
         }
+
+    @GetMapping("/usuarios/{procuraUsuarioDto}")
+    public ResponseEntity<List<SaidaDto>> exibir(@PathVariable ProcuraUsuarioDto procuraUsuarioDto){
+        List<SaidaDto> usuario = service.procuraUsuario(procuraUsuarioDto);
+
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(usuario);
+    }
+
+
 
     }
 
