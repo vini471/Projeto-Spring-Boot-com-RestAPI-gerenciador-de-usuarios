@@ -43,7 +43,7 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping("/altera")
+    @PostMapping("/altera/{email}")
     public ResponseEntity<String> alteraSenhaController(@PathVariable String email,
                                                         @RequestBody TrocaSenhaDto trocaSenhaDto) {
         boolean retorno = service.trocaSenhaUsuario(email, trocaSenhaDto);
@@ -54,7 +54,7 @@ public class UsuarioController {
         }
     }
 
-    @DeleteMapping("/usuario/3")
+    @DeleteMapping("/usuario3")
     public ResponseEntity<String> deletaUsuarioController(@RequestBody UsuarioDto usuarioDto) {
         boolean retorno = service.deletaUsuario(usuarioDto);
         if (!retorno) {

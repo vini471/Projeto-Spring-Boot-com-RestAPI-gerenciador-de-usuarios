@@ -1,10 +1,25 @@
 package com.projeto.api.entity;
 
+import com.projeto.api.dto.CategoriaDto;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Categoria")
 public class CategoriaEntity {
-    private String nomeCategoria;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCategoria")
     private Long idCategoria;
 
+    @Column(name = "nomeCategoria")
+    private String nomeCategoria;
+
     public CategoriaEntity() {
+    }
+
+    public CategoriaEntity(CategoriaDto categoriaDto) {
+        this.idCategoria = categoriaDto.getIdCategoriaDto();
+        this.nomeCategoria = categoriaDto.getNomeCategoriaDto();
     }
 
     public String getNomeCategoria() {

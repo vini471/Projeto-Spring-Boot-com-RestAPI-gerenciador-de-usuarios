@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(/"api2")
+@RequestMapping("/teste")
 public class ProdutoController {
     private final ProdutoService service;
 
@@ -58,7 +58,7 @@ public class ProdutoController {
         }
     }
 
-    @DeleteMapping("/produto/deleta/{}")
+    @DeleteMapping("/deletaProduto")
     public ResponseEntity<String> deletaProdutoController(ProdutoDto produtoDto){
         boolean retorno = service.deletarProduto(produtoDto);
         if (!retorno){
@@ -68,7 +68,7 @@ public class ProdutoController {
         }
     }
 
-    @DeleteMapping("/produto/deleta/{}")
+    @DeleteMapping("/deletaCategoria")
     public ResponseEntity<String> deletaCategoriaController(CategoriaDto categoriaDto){
         boolean retorno = service.deletarCategoria(categoriaDto);
         if (!retorno){

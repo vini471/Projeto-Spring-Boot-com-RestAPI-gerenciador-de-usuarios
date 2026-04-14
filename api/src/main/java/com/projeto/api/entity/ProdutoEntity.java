@@ -1,9 +1,23 @@
 package com.projeto.api.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Produto")
 public class ProdutoEntity {
-    private String nomeProduto;
-    private double precoProduto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idProduto")
     private Long idProduto;
+
+    @Column(name = "nomeProduto")
+    private String nomeProduto;
+
+    @Column(name = "precoProduto")
+    private double precoProduto;
+
+    @ManyToOne
+    @JoinColumn(name = "id_Categoria")
     private Long idCategoria;
 
     public ProdutoEntity() {
