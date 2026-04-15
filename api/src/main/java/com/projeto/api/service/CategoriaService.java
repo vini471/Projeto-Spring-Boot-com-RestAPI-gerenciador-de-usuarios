@@ -19,16 +19,10 @@ public class CategoriaService {
     private List<CategoriaEntity> listaCategoria = new ArrayList<>();
 
     public boolean cadastrarCategoria(CategoriaDto categoriaDto){
-        for (CategoriaEntity entity : listaCategoria){
-            if (entity.getIdCategoria().equals(categoriaDto)){
-                return false;
-            }
-            CategoriaEntity categoriaEntity = new CategoriaEntity();
+            CategoriaEntity categoriaEntity = new CategoriaEntity(categoriaDto );
 
             repository.save(categoriaEntity);
             return true;
-        }
-        return false;
     }
 
     public boolean deletarCategoria(CategoriaDto categoriaDto) {

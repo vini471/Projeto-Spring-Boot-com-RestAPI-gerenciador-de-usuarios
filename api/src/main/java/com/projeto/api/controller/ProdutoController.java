@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teste")
+@RequestMapping("/api")
 public class ProdutoController {
     private final ProdutoService service;
 
@@ -18,7 +18,7 @@ public class ProdutoController {
         this.service = service;
     }
 
-    @PostMapping("/produto")
+    /*@PostMapping("/produto")
     public ResponseEntity<String> cadastraProdutoController(@RequestBody ProdutoDto produtoDto){
         boolean retorno = service.cadastraProduto(produtoDto);
         if (!retorno){
@@ -26,20 +26,10 @@ public class ProdutoController {
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Produto cadastrado com sucesso");
         }
-    }
-
-    @PostMapping("/categoria")
-    public ResponseEntity<String> cadastraCategoriaController(@RequestBody CategoriaDto categoriaDto){
-        boolean retorno = service.cadastrarCategoria(categoriaDto);
-        if (!retorno){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Categoria não cadastrada! Tente novamente!");
-        } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Categoria cadastrada com sucesso");
-        }
-    }
+    }*/
 
     @GetMapping("/produtos")
-    public ResponseEntity<List<ProdutoDto>> listaProdutoController(){
+    public ResponseEntity<List<ProdutoDto>> obterProduto(){
         List<ProdutoDto> produtos = service.obterProduto();
         if (produtos == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -48,17 +38,7 @@ public class ProdutoController {
         }
     }
 
-    @GetMapping("/categorias")
-    public ResponseEntity<List<CategoriaDto>> listaCategoriaController(){
-        List<CategoriaDto> categorias = service.obterCategoria();
-        if (categorias == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(categorias);
-        }
-    }
-
-    @DeleteMapping("/deletaProduto")
+    /*@DeleteMapping("/deletaProduto")
     public ResponseEntity<String> deletaProdutoController(ProdutoDto produtoDto){
         boolean retorno = service.deletarProduto(produtoDto);
         if (!retorno){
@@ -66,15 +46,5 @@ public class ProdutoController {
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Produto excluido com sucesso");
         }
-    }
-
-    @DeleteMapping("/deletaCategoria")
-    public ResponseEntity<String> deletaCategoriaController(CategoriaDto categoriaDto){
-        boolean retorno = service.deletarCategoria(categoriaDto);
-        if (!retorno){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Categoria não encontrada/excluida! Tente novamente!");
-        } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Categoria excluida com sucesso");
-        }
-    }
+    }*/
 }

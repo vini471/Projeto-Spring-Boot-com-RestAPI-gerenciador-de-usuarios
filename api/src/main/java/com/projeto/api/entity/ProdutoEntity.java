@@ -1,5 +1,6 @@
 package com.projeto.api.entity;
 
+import com.projeto.api.dto.ProdutoDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,51 +8,52 @@ import jakarta.persistence.*;
 public class ProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProduto")
-    private Long idProduto;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "nomeProduto")
-    private String nomeProduto;
+    @Column(name = "nome")
+    private String nome;
 
-    @Column(name = "precoProduto")
-    private double precoProduto;
+    @Column(name = "preco")
+    private double preco;
 
-    @ManyToOne
-    @JoinColumn(name = "id_Categoria")
-    private Long idCategoria;
+    @ManyToMany
+    private CategoriaEntity categoriaEntity;
 
     public ProdutoEntity() {
     }
 
+    public ProdutoEntity(ProdutoDto produtoDto) {
+        if (produtoDto.getIdProdutoDto() > 0L){
+            this.id = produtoDto.getIdProdutoDto();
+        }
+        this.id = produtoDto.getIdProdutoDto();
+        this.nome = produtoDto.getNomeProdutoDto();
+        this.preco = produtoDto.getPrecoProdutoDto();
+    }
+
     public double getPrecoProduto() {
-        return precoProduto;
+        return preco;
     }
 
     public void setPrecoProduto(double precoProduto) {
-        this.precoProduto = precoProduto;
+        this.preco = precoProduto;
     }
 
     public String getNomeProduto() {
-        return nomeProduto;
+        return nome;
     }
 
     public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+        this.nome = nomeProduto;
     }
 
     public Long getIdProduto() {
-        return idProduto;
+        return id;
     }
 
     public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
+        this.id = idProduto;
     }
 
-    public Long getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(Long idCategoria) {
-        this.idCategoria = idCategoria;
-    }
 }

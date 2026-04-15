@@ -9,32 +9,34 @@ public class CategoriaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCategoria")
-    private Long idCategoria;
+    private Long id;
 
     @Column(name = "nomeCategoria")
-    private String nomeCategoria;
+    private String nome;
 
     public CategoriaEntity() {
     }
 
     public CategoriaEntity(CategoriaDto categoriaDto) {
-        this.idCategoria = categoriaDto.getIdCategoriaDto();
-        this.nomeCategoria = categoriaDto.getNomeCategoriaDto();
+        if (categoriaDto.getIdCategoriaDto() > 0L) {
+            this.id = categoriaDto.getIdCategoriaDto();
+        }
+        this.nome = categoriaDto.getNomeCategoriaDto();
     }
 
     public String getNomeCategoria() {
-        return nomeCategoria;
+        return nome;
     }
 
     public void setNomeCategoria(String nomeCategoria) {
-        this.nomeCategoria = nomeCategoria;
+        this.nome = nomeCategoria;
     }
 
     public Long getIdCategoria() {
-        return idCategoria;
+        return id;
     }
 
     public void setIdCategoria(Long idCategoria) {
-        this.idCategoria = idCategoria;
+        this.id = id;
     }
 }

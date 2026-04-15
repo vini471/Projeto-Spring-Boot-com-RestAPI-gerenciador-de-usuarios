@@ -1,34 +1,43 @@
 package com.projeto.api.dto;
 
 public class ProdutoDto {
-    private String nomeProdutoDto;
-    private double precoProdutoDto;
-    private long idProdutoDto;
+    private String nome;
+    private double preco;
+    private long id;
+    private long idCategoria;
 
     public ProdutoDto() {
     }
 
     public String getNomeProdutoDto() {
-        return nomeProdutoDto;
+        return nome;
     }
 
     public void setNomeProdutoDto(String nomeProdutoDto) {
-        this.nomeProdutoDto = nomeProdutoDto;
+        this.nome = nomeProdutoDto;
     }
 
     public double getPrecoProdutoDto() {
-        return precoProdutoDto;
+        return preco;
     }
 
     public void setPrecoProdutoDto(double precoProdutoDto) {
-        this.precoProdutoDto = precoProdutoDto;
+        this.preco = precoProdutoDto;
     }
 
     public long getIdProdutoDto() {
-        return idProdutoDto;
+        return id;
     }
 
     public void setIdProdutoDto(long idProdutoDto) {
-        this.idProdutoDto = idProdutoDto;
+        this.id = id;
+    }
+
+    public long getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(long idCategoria) {
+        this.idCategoria = idCategoria;
     }
 }

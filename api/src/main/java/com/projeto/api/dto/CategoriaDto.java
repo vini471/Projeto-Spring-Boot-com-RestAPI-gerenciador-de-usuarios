@@ -1,25 +1,25 @@
 package com.projeto.api.dto;
 
 public class CategoriaDto {
-    private String nomeCategoriaDto;
-    private long idCategoriaDto;
+    private String nome;
+    private long id;
 
     public CategoriaDto() {
     }
 
     public String getNomeCategoriaDto() {
-        return nomeCategoriaDto;
+        return nome;
     }
 
     public void setNomeCategoriaDto(String nomeCategoriaDto) {
-        this.nomeCategoriaDto = nomeCategoriaDto;
+        this.nome = nomeCategoriaDto;
     }
 
     public long getIdCategoriaDto() {
-        return idCategoriaDto;
+        return id;
     }
 
     public void setIdCategoriaDto(long idCategoriaDto) {
-        this.idCategoriaDto = idCategoriaDto;
+        this.id = idCategoriaDto;
     }
 }
