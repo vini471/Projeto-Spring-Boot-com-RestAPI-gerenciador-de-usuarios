@@ -26,13 +26,12 @@ public class CategoriaService {
     }
 
     public boolean deletarCategoria(CategoriaDto categoriaDto) {
-        for (CategoriaEntity entity : listaCategoria) {
-            if (entity.getNomeCategoria().equals(categoriaDto.getNomeCategoriaDto())) {
-                listaCategoria.remove(categoriaDto);
-                return true;
-            }
+        Long id = categoriaDto.getIdCategoriaDto();
+        if (!repository.existsById(id)){
+            return false;
         }
-        return false;
+        repository.deleteById(id);
+        return true;
     }
 
     public List<CategoriaDto> obterCategoria() {

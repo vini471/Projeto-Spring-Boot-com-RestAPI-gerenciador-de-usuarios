@@ -17,7 +17,8 @@ public class ProdutoEntity {
     @Column(name = "preco")
     private double preco;
 
-    @ManyToMany
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoriaEntity;
 
     public ProdutoEntity() {

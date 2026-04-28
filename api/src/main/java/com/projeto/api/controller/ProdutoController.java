@@ -18,15 +18,15 @@ public class ProdutoController {
         this.service = service;
     }
 
-    /*@PostMapping("/produto")
+    @PostMapping("/produto")
     public ResponseEntity<String> cadastraProdutoController(@RequestBody ProdutoDto produtoDto){
-        boolean retorno = service.cadastraProduto(produtoDto);
+        boolean retorno = service.cadastrarProduto(produtoDto);
         if (!retorno){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto não cadastrado! Tente novamente!");
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Produto cadastrado com sucesso");
         }
-    }*/
+    }
 
     @GetMapping("/produtos")
     public ResponseEntity<List<ProdutoDto>> obterProduto(){
@@ -38,7 +38,7 @@ public class ProdutoController {
         }
     }
 
-    /*@DeleteMapping("/deletaProduto")
+    @DeleteMapping("/deletaProduto")
     public ResponseEntity<String> deletaProdutoController(ProdutoDto produtoDto){
         boolean retorno = service.deletarProduto(produtoDto);
         if (!retorno){
@@ -46,5 +46,5 @@ public class ProdutoController {
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Produto excluido com sucesso");
         }
-    }*/
+    }
 }

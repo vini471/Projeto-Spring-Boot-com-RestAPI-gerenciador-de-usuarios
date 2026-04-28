@@ -28,12 +28,23 @@ public class ProdutoService {
         return true;
     }
 
+    public boolean deletarProduto(ProdutoDto produtoDto){
+        Long id = produtoDto.getIdProdutoDto();
+        if (!repository.existsById(id)){
+            return false;
+        }
+        repository.deleteById(id);
+        return true;
+    }
+
     public List<ProdutoDto> obterProduto(){
         List<ProdutoDto> listaProdutoDto = new ArrayList<>();
 
         List<ProdutoEntity> listaProduto = repository.findAll();
         return listaProdutoDto;
     }
+
+
 
 
 }
